@@ -16,3 +16,10 @@ Assets/Assemblies/*
 #File extensions
 *.userprefs
 *.suo
+*.sln
+*.csproj
+
+#Files
+UnityVS.VersionSpecific.dll
+UnityVS.VersionSpecific.dll.meta
+
