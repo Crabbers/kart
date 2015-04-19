@@ -4,35 +4,45 @@ using System.Collections.Generic;
 
 public class AIBehaviour : MonoBehaviour 
 {
-    NavMeshAgent agent;
+    private NavMeshAgent Agent;
     private List<Vector3> WayPoints;
     private int Target;
 
 	// Use this for initialization
-	void Start () 
+	void Start ()
     {
-        agent = GetComponent<NavMeshAgent>();
+        Agent = GetComponent<NavMeshAgent>();
         WayPoints = new List<Vector3>();
-        WayPoints.Add(new Vector3(-3.8f, 0.2f, -63.3f));
-        WayPoints.Add(new Vector3(-30f, 0.2f, 17f));
-        WayPoints.Add(new Vector3(18f, 0.2f, 65f));
-        WayPoints.Add(new Vector3(22f, 0.2f, -1f));
         Target = 0;
+
+        GameObject track = GameObject.FindGameObjectWithTag("Track");
+        Transform[] trackChildren = track.GetComponentsInChildren<Transform>();
+
+        foreach (Transform child in trackChildren)
+        {
+            if(child.gameObject.tag == "WayPoint")
+            {
+                WayPoints.Add(child.transform.position);
+            }
+        }
+
+        Agent.SetDestination(WayPoints[Target]);
 	}
 	
 	// Update is called once per frame
 	void Update () 
     {
-        agent.SetDestination(WayPoints[Target]);
 
-        if (Vector3.Distance(agent.transform.position, WayPoints[Target]) <= 5.0f)
+        if (Vector3.Distance(Agent.transform.position, WayPoints[Target]) <= 20.0f)
         {
             Target++;
 
-            if(Target > 3)
+            if (Target > WayPoints.Count-1)
             {
                 Target = 0;
             }
+                
+            Agent.SetDestination(WayPoints[Target]);
         }
 	}
 }
