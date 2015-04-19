@@ -16,10 +16,13 @@ public class AIBehaviour : MonoBehaviour
     private Vector3 Target;
     private bool HasTarget;
     private bool Searching;
+    private bool m_isDrone;
 
     // Use this for initialization
     void Start()
     {
+        UnityStandardAssets.Vehicles.Car.CarUserControl car = GetComponent<UnityStandardAssets.Vehicles.Car.CarUserControl>();
+        m_isDrone = car.m_isDrone;
         Agent = GetComponent<NavMeshAgent>();
         HasTarget = false;
         Searching = true;
@@ -29,25 +32,29 @@ public class AIBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Searching)
+        if (m_isDrone)
         {
-            // TODO: Can see 
+            if (Searching)
+            {
+                // TODO: Can see 
+            }
+
+            if (HasTarget)
+            {
+                // TODO: Is target still within range. Is target aquired
+            }
+
+            if (!HasTarget)
+            {
+                // TODO: Implement check if player / NPC / item is in site
+
+                // TODO: Implement wander / character search
+
+            }
+
+            Agent.SetDestination(Target);
+            Vector3 pos = Agent.nextPosition;
         }
-
-        if(HasTarget)
-        {
-            // TODO: Is target still within range. Is target aquired
-        }
-
-        if(!HasTarget)
-        {
-            // TODO: Implement check if player / NPC / item is in site
-
-            // TODO: Implement wander / character search
-            
-        }
-
-        Agent.SetDestination(Target);
     }
 
     private List<TargetType> AreTargetsAvailable()
