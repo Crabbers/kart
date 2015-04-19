@@ -102,13 +102,13 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 192529622}
   m_Enabled: 1
-  m_Radius: 2.5
+  m_Radius: 3.5
   m_Speed: 0
   m_Acceleration: 0
   avoidancePriority: 50
   m_AngularSpeed: 0
   m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 2
@@ -301,6 +301,10 @@ Prefab:
     - target: {fileID: 11498212, guid: cddafba38a1ee26468ae1274179a457d, type: 2}
       propertyPath: m_isDrone
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481164, guid: cddafba38a1ee26468ae1274179a457d, type: 2}
+      propertyPath: m_MaximumSteerAngle
+      value: 27
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cddafba38a1ee26468ae1274179a457d, type: 2}

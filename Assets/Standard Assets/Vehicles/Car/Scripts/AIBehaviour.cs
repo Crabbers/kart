@@ -22,6 +22,7 @@ public class AIBehaviour : MonoBehaviour
     private float m_reverseTime = 0.0f;
     private Vector3 m_startReversePosition = new Vector3(0, 0, 0);
     private bool shouldReverse = false;
+    private int m_lastSteeringSign = 0;
 
     // Use this for initialization
     void Start()
@@ -45,11 +46,12 @@ public class AIBehaviour : MonoBehaviour
     {
         if (m_isDrone)
         {
-            Vector3 destination = new Vector3(0, 0, 0); //this is now only for testing...
+            Vector3 destination = new Vector3(-10, 0, 20); //this is now only for testing...
+            bool stopAtTarget = true;
 
             //make these public members if require tuning
-            const float timeStuckBeforeReverse = 3.0f;
-            const float maxReverseTime = 4.0f;
+            const float timeStuckBeforeReverse = 2.0f;
+            const float maxReverseTime = 3.0f;
             const float movingThreshold = 0.3f; //0.3ms
 
             Vector3 carPosition = m_car.transform.position;
@@ -70,22 +72,26 @@ public class AIBehaviour : MonoBehaviour
 
             if (m_timeStuck > timeStuckBeforeReverse)
             {
-                m_reverseTime = maxReverseTime;
-                m_startReversePosition = carPosition;
-                shouldReverse = true;
+                // if not already reversing
+                if (m_reverseTime <= 0)
+                {
+                    m_reverseTime = maxReverseTime;
+                    m_startReversePosition = carPosition;
+                    shouldReverse = true;
+                }
             }
 
             if (!shouldReverse)
             {
-                DriveToDest(destination);
+                DriveToDest(destination, stopAtTarget);
             }
             else
             {
-                const float sqrDistToReverse = 9.0f; //sqr only for performance considerations
-                ReverseUnstuck(m_car.transform.position - (15 * m_car.transform.forward));
+                const float sqrDistToReverse = 7.0f; //sqr only for performance considerations
+                ReverseUnstuck(m_car.transform.position - (sqrDistToReverse * m_car.transform.forward));
                 m_reverseTime -= Time.fixedDeltaTime;
                 //reversed three meters or reversed for whole duration
-                if (m_reverseTime <=0 || (carPosition - m_startReversePosition).sqrMagnitude > sqrDistToReverse)
+                if (m_reverseTime <= 0 || (carPosition - m_startReversePosition).sqrMagnitude > sqrDistToReverse)
                 {
                     shouldReverse = false;
                     m_reverseTime = 0.0f;
@@ -108,74 +114,90 @@ public class AIBehaviour : MonoBehaviour
 
     private void ReverseUnstuck(Vector3 dest)
     {
-        m_carUserControl.DroneControl(m_reverseTime > 1.5f ? 1 : -1, -1.0f, -1.0f, 0);
+        m_carUserControl.DroneControl(m_lastSteeringSign < 0 ? 1 : -1, -1.0f, -1.0f, 0);
     }
 
-    private void DriveToDest(Vector3 dest)
+    private void DriveToDest(Vector3 dest, bool stopAtTarget)
     {
-
+        Vector3 carPosition = m_car.transform.position;
         NavMeshPath path = new NavMeshPath();
 
         m_agent.CalculatePath(dest, path);
-        Vector3 carToNextPos = path.corners[1] - m_car.transform.position;
-        bool needAccelarate = (dest - m_car.transform.position).sqrMagnitude > 0.05f;
+        Vector3 carToNextPos = path.corners[1] - carPosition;
+        bool reachedDest = (dest - carPosition).sqrMagnitude <= 0.3f;
 
-        Vector3 target = needAccelarate ? carToNextPos.normalized : new Vector3(0, 0, 0);
-        Vector3 forward = m_car.transform.forward;
-        Vector3 right = m_car.transform.right;
-        float fDotT = Vector3.Dot(target, forward);
-        float rDotT = Vector3.Dot(target, right);
-
-        int quadrant = 0;
-
-        if (fDotT >= 0)
+        if (!reachedDest)
         {
-            if (rDotT >= 0)
-            {
-                quadrant = 4;
-            }
-            else
-            {
-                quadrant = 1;
-            }
+            Vector3 target = carToNextPos.normalized;
+            Vector3 forward = m_car.transform.forward;
+            Vector3 right = m_car.transform.right;
+            float fDotT = Vector3.Dot(target, forward);
+            float rDotT = Vector3.Dot(target, right);
 
-        }
-        else
-        {
-            if (rDotT >= 0)
-            {
-                quadrant = 3;
-            }
-            else
-            {
-                quadrant = 2;
-            }
-        }
+            // quadrants from left to forward vector of car in anti clockwise order
+            int quadrant = 0;
 
-        float hControl = 0.0f;
-        float vControl = 0.0f;
-        float brake = 0.0f;
-
-        if (needAccelarate)
-        {
-            const float minAccelaration = 0.2f;
-            if (quadrant == 1 || quadrant == 4)
+            if (fDotT >= 0)
             {
-                vControl = System.Math.Max(minAccelaration, 1.0f * System.Math.Abs(Vector3.Dot(target, forward)));
-                if (fDotT < 0.97f)
+                if (rDotT >= 0)
                 {
-                    hControl = quadrant == 1 ? -1 : 1;
+                    quadrant = 4;
+                }
+                else
+                {
+                    quadrant = 1;
                 }
             }
             else
             {
-                vControl = -0.0f;
-                hControl = quadrant == 2 ? -1 : 1;
-                brake = 0.3f;
+                if (rDotT >= 0)
+                {
+                    quadrant = 3;
+                }
+                else
+                {
+                    quadrant = 2;
+                }
             }
-        }
 
-        m_carUserControl.DroneControl(hControl, vControl, brake, 0);
+            float hControl = 0.0f;
+            float vControl = 0.0f;
+            float brake = 0.0f;
+
+            const float minAccelaration = 0.2f;
+            if (quadrant == 1 || quadrant == 4)
+            {
+                vControl = System.Math.Max(minAccelaration, System.Math.Abs(Vector3.Dot(target, forward)));
+
+                if (fDotT < 0.97f)
+                {
+                    const float magicSteeringScaler = 3.0f;
+                    hControl = magicSteeringScaler * System.Math.Abs(fDotT);
+                    hControl = System.Math.Min(hControl, 1.0f);
+                    hControl = quadrant == 1 ? -hControl : hControl;
+                }
+            }
+            else
+            {
+                vControl = 0.0f;
+                hControl = quadrant == 2 ? -1 : 1;
+                brake = 0.4f;
+            }
+
+            //if close to dest try to control speed
+            if (stopAtTarget && (carPosition - dest).magnitude < 5.0f)
+            {
+                float speed = (m_prevPosition - carPosition).magnitude / Time.fixedDeltaTime;
+                if (speed > 5)
+                {
+                    vControl = 0.0f;
+                    brake = speed * 0.3f + 0.5f;
+                }
+            }
+            m_lastSteeringSign = System.Math.Sign(hControl);
+
+            m_carUserControl.DroneControl(hControl, vControl, brake, 0);
+        }
     }
 
     private List<TargetType> AreTargetsAvailable()
