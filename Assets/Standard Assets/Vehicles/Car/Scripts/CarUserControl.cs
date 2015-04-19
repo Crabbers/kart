@@ -27,7 +27,7 @@ namespace UnityStandardAssets.Vehicles.Car
         {
            if(m_isDrone)
            {
-               DroneControl();
+
            }
            else
            {
@@ -49,9 +49,9 @@ namespace UnityStandardAssets.Vehicles.Car
 #endif
         }
 
-        private void DroneControl()
+        public void DroneControl(float steering, float accel, float footbrake, float handbrake)
         {
-
+            m_Car.Move(steering, accel, footbrake, handbrake);
         }
 
         private GameObject FindClosestEnemy()
