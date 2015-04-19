@@ -12,48 +12,90 @@ public enum TargetType
 
 public class AIBehaviour : MonoBehaviour 
 {
-    private NavMeshAgent Agent;
-    private Vector3 Target;
-    private bool HasTarget;
-    private bool Searching;
+    private NavMeshAgent m_agent;
     private bool m_isDrone;
+    private GameObject m_car;
+    UnityStandardAssets.Vehicles.Car.CarUserControl m_carUserControl;
 
     // Use this for initialization
     void Start()
     {
-        UnityStandardAssets.Vehicles.Car.CarUserControl car = GetComponent<UnityStandardAssets.Vehicles.Car.CarUserControl>();
-        m_isDrone = car.m_isDrone;
-        Agent = GetComponent<NavMeshAgent>();
-        HasTarget = false;
-        Searching = true;
-        Target = new Vector3(0, 0, 0);
+        m_carUserControl = GetComponent<UnityStandardAssets.Vehicles.Car.CarUserControl>();
+        m_isDrone = m_carUserControl.m_isDrone;
+        m_agent = GetComponent<NavMeshAgent>();
+        m_car = m_carUserControl.gameObject;
+
+        if(!m_isDrone)
+        {
+            m_agent.enabled = false;
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (m_isDrone)
         {
-            if (Searching)
+             NavMeshPath path = new NavMeshPath();
+             m_agent.CalculatePath(new Vector3(0, 0, 0), path);
+             Vector3 carToNextPos = path.corners[1] - m_car.transform.position;
+            bool needAccelarate = carToNextPos.sqrMagnitude > 0.2;
+           
+            Vector3 target = needAccelarate ? carToNextPos.normalized : new Vector3(0, 0, 0);
+            Vector3 forward = m_car.transform.forward;
+            Vector3 right = m_car.transform.right;
+
+            float fDotT = Vector3.Dot(target, forward);
+            float rDotT = Vector3.Dot(target, right);
+
+            int quadrant = 0;
+
+            if(fDotT >= 0)
             {
-                // TODO: Can see 
+                if(rDotT >= 0)
+                {
+                    quadrant = 4;
+                }
+                else
+                {
+                    quadrant = 1;
+                }
+                
+            }
+            else
+            {
+                 if(rDotT >= 0)
+                {
+                    quadrant = 3;
+                }
+                else
+                {
+                    quadrant = 2;
+                }
             }
 
-            if (HasTarget)
+            float hControl = 0.0f;
+            float vControl = 0.0f;
+
+            if(needAccelarate)
             {
-                // TODO: Is target still within range. Is target aquired
+                const float minAccelaration = 0.2f;
+                if(quadrant == 1 || quadrant ==4)
+                {
+                    vControl = System.Math.Max(minAccelaration, 1.0f * Vector3.Dot(target, forward));
+                    if(fDotT < 0.97f)
+                    {
+                        hControl = quadrant == 1 ? -1 : 1;
+                    }
+                }
+                else
+                {
+                    vControl = 0.1f;
+                    hControl = quadrant == 2 ? -1 : 1;
+                }
             }
 
-            if (!HasTarget)
-            {
-                // TODO: Implement check if player / NPC / item is in site
-
-                // TODO: Implement wander / character search
-
-            }
-
-            Agent.SetDestination(Target);
-            Vector3 pos = Agent.nextPosition;
+            m_carUserControl.DroneControl(hControl, vControl, 0, 0);
         }
     }
 
@@ -63,4 +105,6 @@ public class AIBehaviour : MonoBehaviour
 
         return possibleTargets;
     }
+
+
 }
