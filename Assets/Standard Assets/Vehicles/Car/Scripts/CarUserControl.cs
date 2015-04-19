@@ -7,6 +7,11 @@ namespace UnityStandardAssets.Vehicles.Car
     [RequireComponent(typeof (CarController))]
     public class CarUserControl : MonoBehaviour
     {
+        /// <summary>
+        /// true enables drone control
+        /// </summary>
+        public bool m_isDrone;
+
         private CarController m_Car; // the car controller we want to use
 
 
@@ -19,6 +24,18 @@ namespace UnityStandardAssets.Vehicles.Car
 
         private void FixedUpdate()
         {
+           if(m_isDrone)
+           {
+               DroneControl();
+           }
+           else
+           {
+               UserControl();
+           }
+        }
+
+        private void UserControl()
+        {
             // pass the input to the car!
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
             float v = CrossPlatformInputManager.GetAxis("Vertical");
@@ -28,6 +45,11 @@ namespace UnityStandardAssets.Vehicles.Car
 #else
             m_Car.Move(h, v, v, 0f);
 #endif
+        }
+
+        private void DroneControl()
+        {
+
         }
     }
 }

@@ -126,6 +126,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11498212, guid: cddafba38a1ee26468ae1274179a457d, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11498212, guid: cddafba38a1ee26468ae1274179a457d, type: 2}
+      propertyPath: m_isDrone
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481164, guid: cddafba38a1ee26468ae1274179a457d, type: 2}
+      propertyPath: m_Downforce
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cddafba38a1ee26468ae1274179a457d, type: 2}
   m_IsPrefabParent: 0
