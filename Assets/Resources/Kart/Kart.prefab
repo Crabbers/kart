@@ -338,6 +338,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &170970
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 456310}
+  - 114: {fileID: 11471916}
+  - 65: {fileID: 6529464}
+  m_Layer: 0
+  m_Name: AmmoStorage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &171476
 GameObject:
   m_ObjectHideFlags: 1
@@ -554,7 +571,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 191330}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: .589999974, z: 0}
+  m_LocalPosition: {x: .769999981, y: .589999974, z: 6.55999994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 435128}
@@ -563,6 +580,7 @@ Transform:
   - {fileID: 467022}
   - {fileID: 442844}
   - {fileID: 402876}
+  - {fileID: 456310}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &411504
@@ -800,6 +818,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 402876}
   m_RootOrder: 11
+--- !u!4 &456310
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170970}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: .75, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 405046}
+  m_RootOrder: 6
 --- !u!4 &458022
 Transform:
   m_ObjectHideFlags: 1
@@ -1442,6 +1472,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &6529464
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170970}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1.5, z: 4.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &8207218
 AudioSource:
   m_ObjectHideFlags: 1
@@ -1866,6 +1908,19 @@ MonoBehaviour:
   maxRolloffDistance: 500
   dopplerLevel: 1
   useDoppler: 1
+--- !u!114 &11471916
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 668b21541a3d7fa49802f73322671d0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AmmoCount: 0
+  ActiveAmmoPrefab: {fileID: 413692, guid: 3733df561336094448ae34b828434304, type: 2}
 --- !u!114 &11480682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1968,6 +2023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96468c245ae8e0d4f8f1c7a7b8b0542e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_isDrone: 0
 --- !u!146 &14637476
 WheelCollider:
   m_ObjectHideFlags: 1
