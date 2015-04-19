@@ -36,9 +36,9 @@ public class AIBehaviour : MonoBehaviour
     {
         if (m_isDrone)
         {
-             NavMeshPath path = new NavMeshPath();
-             m_agent.CalculatePath(new Vector3(0, 0, 0), path);
-             Vector3 carToNextPos = path.corners[1] - m_car.transform.position;
+            NavMeshPath path = new NavMeshPath();
+            m_agent.CalculatePath(new Vector3(0, 0, 0), path);
+            Vector3 carToNextPos = path.corners[1] - m_car.transform.position;
             bool needAccelarate = carToNextPos.sqrMagnitude > 0.2;
            
             Vector3 target = needAccelarate ? carToNextPos.normalized : new Vector3(0, 0, 0);
@@ -90,7 +90,7 @@ public class AIBehaviour : MonoBehaviour
                 }
                 else
                 {
-                    vControl = 0.1f;
+                    vControl = -0.6f;
                     hControl = quadrant == 2 ? -1 : 1;
                 }
             }
