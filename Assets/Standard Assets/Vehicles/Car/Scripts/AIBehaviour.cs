@@ -16,6 +16,10 @@ public class AIBehaviour : MonoBehaviour
     private bool m_isDrone;
     private GameObject m_car;
     UnityStandardAssets.Vehicles.Car.CarUserControl m_carUserControl;
+    private Vector3 m_prevPosition;
+    private bool m_moving;
+    private float timeStuck = 0.0f;
+    private float m_reverseTime = 0.0f;
 
     // Use this for initialization
     void Start()
@@ -26,6 +30,8 @@ public class AIBehaviour : MonoBehaviour
         m_agent.updatePosition = false;
         m_agent.updateRotation = false;
         m_car = m_carUserControl.gameObject;
+        m_prevPosition = m_car.transform.position;
+
 
         if(!m_isDrone)
         {
@@ -38,16 +44,59 @@ public class AIBehaviour : MonoBehaviour
     {
         if (m_isDrone)
         {
-            NavMeshPath path = new NavMeshPath();
-            m_agent.CalculatePath(new Vector3(0, 0, 0), path);
-            Vector3 carToNextPos = path.corners[1] - m_car.transform.position;
-            bool needAccelarate = carToNextPos.sqrMagnitude > 0.2;
-           
-            Vector3 target = needAccelarate ? carToNextPos.normalized : new Vector3(0, 0, 0);
-            Vector3 forward = m_car.transform.forward;
-            Vector3 right = m_car.transform.right;
+            //Hack to make the agent update its position without trying to move the kart
+            m_agent.enabled = false;
+            m_agent.transform.position = m_car.transform.position;
+            m_agent.transform.rotation = m_car.transform.rotation;
+            m_agent.enabled = true;
 
-            float fDotT = Vector3.Dot(target, forward);
+            if((m_prevPosition - m_car.transform.position).magnitude < 0.0001)
+            {
+                timeStuck += Time.fixedDeltaTime;
+            }
+            else
+            {
+                timeStuck = 0;
+            }
+
+            if (timeStuck > 2.0f)
+            {
+                m_reverseTime = 3.0f;
+                timeStuck = 0;
+            }
+
+            if(m_reverseTime <= 0)
+            {
+                DriveToDest(new Vector3(0, 0, 0));
+            }
+            else
+            {
+                ReverseUnstuck(m_car.transform.position - (5 * m_car.transform.forward));
+            }
+
+            m_prevPosition = m_car.transform.position;
+        }
+    }
+
+    private void ReverseUnstuck(Vector3 dest)
+    {
+        m_carUserControl.DroneControl(m_reverseTime > 1.5f ? 1 : -1, -1.0f, -1.0f, 0);
+        m_reverseTime -= Time.fixedDeltaTime;
+    }
+
+    private void DriveToDest(Vector3 dest)
+    {
+        
+        NavMeshPath path = new NavMeshPath();
+
+        m_agent.CalculatePath(dest, path);
+        Vector3 carToNextPos = path.corners[1] - m_car.transform.position;
+        bool needAccelarate = (dest - m_car.transform.position).sqrMagnitude > 0.05f;
+
+        Vector3 target = needAccelarate ? carToNextPos.normalized : new Vector3(0, 0, 0);
+        Vector3 forward = m_car.transform.forward;
+        Vector3 right = m_car.transform.right;
+          float fDotT = Vector3.Dot(target, forward);
             float rDotT = Vector3.Dot(target, right);
 
             int quadrant = 0;
@@ -97,8 +146,7 @@ public class AIBehaviour : MonoBehaviour
                 }
             }
 
-            m_carUserControl.DroneControl(hControl, vControl, 0, 0);
-        }
+            m_carUserControl.DroneControl(hControl, vControl, vControl, 0);
     }
 
     private List<TargetType> AreTargetsAvailable()
