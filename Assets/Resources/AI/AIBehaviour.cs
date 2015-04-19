@@ -13,10 +13,10 @@ public class AIBehaviour : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         WayPoints = new List<Vector3>();
-        WayPoints.Add(new Vector3(-11f, 0.2f, 3.5f));
-        WayPoints.Add(new Vector3(0.5f, 0.2f, 10f));
-        WayPoints.Add(new Vector3(9.5f, 0.2f, 3.5f));
-        WayPoints.Add(new Vector3(0.5f, 0.2f, -1.5f));
+        WayPoints.Add(new Vector3(-3.8f, 0.2f, -63.3f));
+        WayPoints.Add(new Vector3(-30f, 0.2f, 17f));
+        WayPoints.Add(new Vector3(18f, 0.2f, 65f));
+        WayPoints.Add(new Vector3(22f, 0.2f, -1f));
         Target = 0;
 	}
 	
