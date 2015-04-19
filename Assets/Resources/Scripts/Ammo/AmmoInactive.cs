@@ -5,7 +5,7 @@ public class AmmoInactive : MonoBehaviour
 {
     void OnTriggerEnter(Collider col)
     {
-        AmmoStorage container = col.transform.GetComponentInChildren<AmmoStorage>();
+        AmmoStorage container = col.transform.GetComponent<AmmoStorage>();
         if(container != null)
         {
             container.AddAmmo();

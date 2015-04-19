@@ -13,7 +13,7 @@ public class AmmoStorage : MonoBehaviour
         {
             AmmoCount--;
 
-            Transform p = (Transform)Instantiate(ActiveAmmoPrefab, transform.localPosition + new Vector3(2, 0, 0), transform.localRotation);
+            Transform p = (Transform)Instantiate(ActiveAmmoPrefab, transform.position + new Vector3(0, 0, -3), transform.rotation);
         }
     }
 
