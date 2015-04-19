@@ -31,7 +31,15 @@ public class FollowCamera : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.F))
         {
-            ++_referencePosition;
+            if(_referencePosition == ReferencePosition.THREE)
+            {
+                _referencePosition = ReferencePosition.ONE;
+            }
+            else
+            {
+                ++_referencePosition;
+            }
+
             MapPositionReference();
         }
 
