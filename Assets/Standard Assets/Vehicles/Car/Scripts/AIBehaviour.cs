@@ -23,6 +23,8 @@ public class AIBehaviour : MonoBehaviour
         m_carUserControl = GetComponent<UnityStandardAssets.Vehicles.Car.CarUserControl>();
         m_isDrone = m_carUserControl.m_isDrone;
         m_agent = GetComponent<NavMeshAgent>();
+        m_agent.updatePosition = false;
+        m_agent.updateRotation = false;
         m_car = m_carUserControl.gameObject;
 
         if(!m_isDrone)
