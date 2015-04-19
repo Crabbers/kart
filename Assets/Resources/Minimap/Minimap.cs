@@ -7,32 +7,34 @@ using System.Collections;
  */
 public class Minimap : MonoBehaviour
 {
-    // Self Reference.
-    private Camera _minimapCamera;
+    // transform.position y *= MimimapFudge.
+    public float MinimapFudge = 6.0f;
 
     // Set mini-map relative to the map/level.
     public Transform Map;
 
-    // Set Mini-map camera relative to the Player camera.
-    public Camera PlayerCamera;
+    // public Camera PlayerCamera; // Ensure depths are set correctly.
+    private Camera _minimapCamera;
 
     void Start()
     {
-        // Retrieve attached camera component.
-        _minimapCamera = this.GetComponent<Camera>();
+        transform.parent = Map; // Relative to map.
+        _minimapCamera = GetComponent<Camera>(); // Retrieve attached camera component.
 
-        // Set relative to map.
-        transform.parent = Map;
-        
-        // Now at origin of map.
-        _minimapCamera.transform.localPosition = new Vector3(0f, 300f, 0f);
-        _minimapCamera.rect = new Rect(0.5f, -0.6f, 1f, 1f);
+        Vector3 childAverage = Vector3.zero;
+        for (int child = 0; child < Map.transform.childCount; ++child)
+        {
+            childAverage += Map.GetChild(child).transform.position;
+        }
+        childAverage /= Map.transform.childCount;
+
+        // Set to origin of attached map, but set far above
+        // (via a fudged value) for a birds eye view.
+        _minimapCamera.transform.localPosition = new Vector3(childAverage.x, 
+            childAverage.y * MinimapFudge, childAverage.z);
+
+        _minimapCamera.rect = new Rect(0.5f, -0.6f, 1f, 1f); // View port.
         _minimapCamera.fieldOfView = 40f;
-
-        // Ensure mini map camera depth is heavier than the player's camera.
-        _minimapCamera.depth = PlayerCamera.depth + 1;
-
-        // Clear Flags: Depth only.
         _minimapCamera.clearFlags = CameraClearFlags.Depth;
         _minimapCamera.transform.rotation = Quaternion.Euler(90, -90, 0);
     }
