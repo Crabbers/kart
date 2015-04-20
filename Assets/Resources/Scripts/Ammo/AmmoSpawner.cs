@@ -5,14 +5,29 @@ public class AmmoSpawner : MonoBehaviour
 {
     public Transform InctiveAmmoPrefab;
     private Transform Ammo;
+    private bool spawning = false;
 
     void Start()
     {
-        Ammo = (Transform)Instantiate(InctiveAmmoPrefab, transform.localPosition, transform.localRotation);
+        
     }
 
     void Update()
     {
-        //delay respawning when Ammo removed
+        if(!spawning
+            && Ammo == null)
+        {
+            StartCoroutine(Spawn());
+        }
+    }
+
+    IEnumerator Spawn()
+    {
+        spawning = true;
+
+        Ammo = (Transform)Instantiate(InctiveAmmoPrefab, transform.localPosition, transform.localRotation);
+
+        yield return new WaitForSeconds(1);
+        spawning = false;
     }
 }
