@@ -3,18 +3,30 @@ using System.Collections;
 
 public class AmmoStorage : MonoBehaviour
 {
+    bool firing = false;
     public int AmmoCount = 0;
     public Transform ActiveAmmoPrefab;
 
     void FixedUpdate()
     {
-        if (Input.GetButton("Jump")
-            && AmmoCount > 0)
+        if (!firing
+            && AmmoCount > 0
+            && Input.GetButtonDown("Fire1")
+            )
         {
-            AmmoCount--;
-
-            Transform p = (Transform)Instantiate(ActiveAmmoPrefab, transform.position + new Vector3(0, 0, -3), transform.rotation);
+            StartCoroutine(Fire());
         }
+    }
+
+    IEnumerator Fire()
+    {
+        firing = true;
+        AmmoCount--;
+
+        Transform p = (Transform)Instantiate(ActiveAmmoPrefab, transform.position + new Vector3(0, 0, -3), transform.rotation);
+
+        yield return new WaitForSeconds(1);
+        firing = false;
     }
 
     public void AddAmmo()
