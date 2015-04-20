@@ -5,6 +5,8 @@ using UnityStandardAssets.Vehicles.Car;
 public class AmmoStorage : MonoBehaviour
 {
     public int AmmoCount = 0;
+    public int Score = 0;
+
     public GameObject BananaPeelZombiePrefab;
     public GameObject GreenShellZombiePrefab;
     public float FireRate = 1;
@@ -82,6 +84,11 @@ public class AmmoStorage : MonoBehaviour
     }
 
     public void AddAmmo()
+    {
+        AmmoCount++;
+    }
+
+    public void AddScore()
     {
         AmmoCount++;
     }
