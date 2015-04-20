@@ -9,7 +9,7 @@ public class AmmoSpawner : MonoBehaviour
 
     void Start()
     {
-        
+        Spawn();
     }
 
     void Update()
@@ -17,17 +17,22 @@ public class AmmoSpawner : MonoBehaviour
         if(!spawning
             && Ammo == null)
         {
-            StartCoroutine(Spawn());
+            StartCoroutine(CoSpawn());
         }
     }
 
-    IEnumerator Spawn()
+    IEnumerator CoSpawn()
     {
         spawning = true;
 
-        Ammo = (Transform)Instantiate(InctiveAmmoPrefab, transform.localPosition, transform.localRotation);
-
         yield return new WaitForSeconds(1);
+
+        Spawn();
         spawning = false;
+    }
+
+    void Spawn()
+    {
+        Ammo = (Transform)Instantiate(InctiveAmmoPrefab, transform.localPosition, transform.localRotation);
     }
 }

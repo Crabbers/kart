@@ -23,7 +23,10 @@ public class AmmoStorage : MonoBehaviour
         firing = true;
         AmmoCount--;
 
-        Transform p = (Transform)Instantiate(ActiveAmmoPrefab, transform.position + new Vector3(0, 0, -3), transform.rotation);
+        Vector3 offset = new Vector3(0, 0, -3);
+        offset = transform.rotation * offset;
+
+        Transform p = (Transform)Instantiate(ActiveAmmoPrefab, transform.position + offset, transform.rotation);
 
         yield return new WaitForSeconds(1);
         firing = false;
