@@ -5,13 +5,25 @@ using System.Linq;
 
 namespace UnityStandardAssets.Vehicles.Car
 {
+    public enum PlayerType
+    {
+        Drone,
+        Player1,
+        Player2
+    };
+
     [RequireComponent(typeof (CarController))]
     public class CarUserControl : MonoBehaviour
     {
-        /// <summary>
-        /// true enables drone control
-        /// </summary>
-        public bool m_isDrone;
+        [HideInInspector]
+        public bool m_isDrone
+        {
+            get
+            { 
+                return m_playerType == PlayerType.Drone;
+            }
+        }
+        public PlayerType m_playerType;
 
         private CarController m_Car; // the car controller we want to use
 
@@ -38,14 +50,9 @@ namespace UnityStandardAssets.Vehicles.Car
         private void UserControl()
         {
             // pass the input to the car!
-            float h = CrossPlatformInputManager.GetAxis("Horizontal");
-            float v = CrossPlatformInputManager.GetAxis("Vertical");
-#if !MOBILE_INPUT
-            float handbrake = CrossPlatformInputManager.GetAxis("Jump");
-            m_Car.Move(h, v, v, handbrake);
-#else
+            float h = CrossPlatformInputManager.GetAxis(m_playerType == PlayerType.Player1 ? "P1 Steer" : "P2 Steer");
+            float v = CrossPlatformInputManager.GetAxis(m_playerType == PlayerType.Player1 ? "P1 Accelerate" : "P2 Accelerate");
             m_Car.Move(h, v, v, 0f);
-#endif
         }
 
         public void DroneControl(float steering, float accel, float footbrake, float handbrake)
