@@ -4,30 +4,35 @@ using System.Collections;
 public class AmmoSpawner : MonoBehaviour
 {
     public Transform InctiveAmmoPrefab;
-    private Transform Ammo;
+    public float SpawnRate = 5;
+
     private bool spawning = false;
 
     void Start()
     {
-        
+        Spawn();
     }
 
     void Update()
     {
-        if(!spawning
-            && Ammo == null)
+        if(!spawning)
         {
-            StartCoroutine(Spawn());
+            StartCoroutine(CoSpawn());
         }
     }
 
-    IEnumerator Spawn()
+    IEnumerator CoSpawn()
     {
         spawning = true;
 
-        Ammo = (Transform)Instantiate(InctiveAmmoPrefab, transform.localPosition, transform.localRotation);
+        yield return new WaitForSeconds(SpawnRate);
 
-        yield return new WaitForSeconds(1);
+        Spawn();
         spawning = false;
+    }
+
+    void Spawn()
+    {
+        Instantiate(InctiveAmmoPrefab, transform.localPosition, transform.localRotation);
     }
 }
