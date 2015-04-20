@@ -28,7 +28,7 @@ GameObject:
   - 114: {fileID: 11478356}
   - 136: {fileID: 13600554}
   m_Layer: 0
-  m_Name: AmmoActive
+  m_Name: BananaPeelZombie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

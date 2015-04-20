@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AmmoInactive : MonoBehaviour
+public class WanderingZombie : MonoBehaviour
 {
     void OnTriggerEnter(Collider col)
     {

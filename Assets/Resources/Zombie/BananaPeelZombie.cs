@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AmmoActive : MonoBehaviour
+public class BananaPeelZombie : MonoBehaviour
 {
     void OnTriggerEnter(Collider col)
     {
