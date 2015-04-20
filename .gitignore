@@ -23,3 +23,5 @@ Assets/Assemblies/*
 UnityVS.VersionSpecific.dll
 UnityVS.VersionSpecific.dll.meta
 
+*.exe
+Kart_Data/

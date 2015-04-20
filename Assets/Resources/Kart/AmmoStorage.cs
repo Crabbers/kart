@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityStandardAssets.Vehicles.Car;
 
 public class AmmoStorage : MonoBehaviour
 {
@@ -12,11 +13,25 @@ public class AmmoStorage : MonoBehaviour
 
     private bool firing = false;
 
+    private PlayerType type = PlayerType.Drone;
+
+    void Start()
+    {
+        CarUserControl car = transform.parent.GetComponent<CarUserControl>();
+        if(car)
+        {
+            type = car.m_playerType;
+        }
+    }
+
     void FixedUpdate()
     {
         if (!firing
             && AmmoCount > 0
-            && Input.GetButtonDown("Fire1")
+            && (
+                    (type == PlayerType.Player1 && Input.GetButton("P1 Fire1"))
+                || (type == PlayerType.Player2 && Input.GetButton("P2 Fire1"))
+                )
             )
         {
             StartCoroutine(FireGreenShellZombie());
@@ -24,7 +39,10 @@ public class AmmoStorage : MonoBehaviour
 
         if (!firing
             && AmmoCount > 0
-            && Input.GetButtonDown("Fire2")
+            && (
+                    (type == PlayerType.Player1 && Input.GetButton("P1 Fire2"))
+                || (type == PlayerType.Player2 && Input.GetButton("P2 Fire2"))
+                )
             )
         {
             StartCoroutine(FireBananaPeelZombie());
