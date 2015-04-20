@@ -27,7 +27,6 @@ GameObject:
   - 4: {fileID: 410256}
   - 114: {fileID: 11471680}
   - 136: {fileID: 13665728}
-  - 114: {fileID: 11400766}
   m_Layer: 0
   m_Name: GreenShellZombie
   m_TagString: Untagged
@@ -152,17 +151,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 150100}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &11400766
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 186184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c56f357ed20edd43a11c16a7463d9d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11471680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -175,6 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 2
+  Shooter: {fileID: 0}
 --- !u!136 &13665728
 CapsuleCollider:
   m_ObjectHideFlags: 1

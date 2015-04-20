@@ -12,9 +12,14 @@ public class AmmoStorage : MonoBehaviour
     public Transform BananaPeelSpawnPoint;
     public Transform GreenShellSpawnPoint;
 
+    public int SpinforTicks = 96;
+    public float SpinIncrement = 15f;
+
     private bool firing = false;
 
     private PlayerType.Types type = PlayerType.Types.Drone;
+
+    private int _spinning = 0;
 
     void Start()
     {
@@ -27,11 +32,18 @@ public class AmmoStorage : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (_spinning > 0)
+        {
+            --_spinning;
+            transform.parent.Rotate(Vector3.up, SpinIncrement);
+            return;
+        }
+
         if (!firing
             && AmmoCount > 0
-            && (
-                    (type == PlayerType.Types.Player1 && Input.GetButton("P1 Fire1"))
-                || (type == PlayerType.Types.Player2 && Input.GetButton("P2 Fire1"))
+            && (Input.GetMouseButton(0)
+                //    (type == PlayerType.Types.Player1 && Input.GetButton("P1 Fire1"))
+                //|| (type == PlayerType.Types.Player2 && Input.GetButton("P2 Fire1"))
                 )
             )
         {
@@ -40,9 +52,9 @@ public class AmmoStorage : MonoBehaviour
 
         if (!firing
             && AmmoCount > 0
-            && (
-                    (type == PlayerType.Types.Player1 && Input.GetButton("P1 Fire2"))
-                || (type == PlayerType.Types.Player2 && Input.GetButton("P2 Fire2"))
+            && (Input.GetMouseButton(1)
+                //    (type == PlayerType.Types.Player1 && Input.GetButton("P1 Fire2"))
+                //|| (type == PlayerType.Types.Player2 && Input.GetButton("P2 Fire2"))
                 )
             )
         {
@@ -73,10 +85,12 @@ public class AmmoStorage : MonoBehaviour
 
         Vector3 forward = Vector3.Normalize(new Vector3(transform.forward.x, 0f, transform.forward.z));
 
-        Instantiate(
+        GameObject zombie = Instantiate(
             GreenShellZombiePrefab,
             new Vector3(GreenShellSpawnPoint.position.x, 0f, GreenShellSpawnPoint.position.z),
-            Quaternion.LookRotation(forward, Vector3.up));
+            Quaternion.LookRotation(forward, Vector3.up)) as GameObject;
+
+        zombie.GetComponent<GreenShellZombie>().Shooter = this;
 
         yield return new WaitForSeconds(FireRate);
         firing = false;
@@ -90,5 +104,11 @@ public class AmmoStorage : MonoBehaviour
     public void AddScore()
     {
         AmmoCount++;
+    }
+
+    public void DealDamage()
+    {
+        AmmoCount--;
+        _spinning = SpinforTicks;
     }
 }

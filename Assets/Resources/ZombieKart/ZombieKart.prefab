@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 490772}
   - 33: {fileID: 3300296}
   - 23: {fileID: 2361964}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RearAxle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ GameObject:
   - 4: {fileID: 426342}
   - 33: {fileID: 3355384}
   - 23: {fileID: 2330858}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 466422}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Boot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 488262}
   - 135: {fileID: 13541588}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FrontLeftWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 445866}
   - 135: {fileID: 13518984}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FrontRightWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 495654}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DoorRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 496714}
   - 137: {fileID: 13749014}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,9 +141,8 @@ GameObject:
   - 95: {fileID: 9527650}
   - 114: {fileID: 11433304}
   - 54: {fileID: 5448600}
-  - 65: {fileID: 6550196}
   - 114: {fileID: 11482742}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ZombieKart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +191,7 @@ GameObject:
   - 4: {fileID: 405500}
   - 33: {fileID: 3308620}
   - 23: {fileID: 2305420}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,7 +206,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 467484}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rotator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +223,7 @@ GameObject:
   - 4: {fileID: 465600}
   - 33: {fileID: 3358444}
   - 23: {fileID: 2340960}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,7 +256,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 476426}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rotator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -272,7 +271,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 435644}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rotator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -287,7 +286,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 442996}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DoorLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,7 +303,7 @@ GameObject:
   - 4: {fileID: 490380}
   - 33: {fileID: 3391500}
   - 23: {fileID: 2373434}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,7 +335,7 @@ GameObject:
   - 4: {fileID: 442648}
   - 33: {fileID: 3327906}
   - 23: {fileID: 2378914}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FrontAxle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +365,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 451636}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rotator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -400,7 +399,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 423568}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bonnet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -416,7 +415,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 432458}
   - 135: {fileID: 13522662}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RearLeftWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,7 +430,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 494898}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: OffSet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,7 +446,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 474358}
   - 135: {fileID: 13578108}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RearRightWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +461,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 484666}
-  m_Layer: 0
+  - 65: {fileID: 6587360}
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1134,23 +1134,23 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: .0500000007
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
---- !u!65 &6550196
+--- !u!65 &6587360
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 119784}
+  m_GameObject: {fileID: 194962}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.76999998, y: 2.88000011, z: 3.96000004}
-  m_Center: {x: 0, y: 1.39999998, z: .219999999}
+  m_Size: {x: .680000007, y: .419999987, z: .289999992}
+  m_Center: {x: -.115000002, y: -.100000001, z: 0}
 --- !u!65 &6592258
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1161,7 +1161,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.76999998, y: 2.8499999, z: 4.03000021}
+  m_Size: {x: 1.95000005, y: 2.99000001, z: 4.34000015}
   m_Center: {x: 0, y: 0, z: .219999999}
 --- !u!95 &9527650
 Animator:
@@ -1228,6 +1228,8 @@ MonoBehaviour:
   FireRate: 1
   BananaPeelSpawnPoint: {fileID: 427872}
   GreenShellSpawnPoint: {fileID: 484188}
+  SpinforTicks: 96
+  SpinIncrement: 15
 --- !u!114 &11482742
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1319,10 +1321,10 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 177908}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: .540000021
-  m_Height: 2.91000009
+  m_Radius: .720000029
+  m_Height: 3.43000007
   m_Direction: 0
   m_Center: {x: 0, y: -.920000017, z: -.980000019}
 --- !u!136 &13640990
@@ -1332,10 +1334,10 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 177908}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: .540000021
-  m_Height: 2.91000009
+  m_Radius: .720000029
+  m_Height: 3.43000007
   m_Direction: 0
   m_Center: {x: 0, y: -.920000017, z: 1.25}
 --- !u!137 &13749014
