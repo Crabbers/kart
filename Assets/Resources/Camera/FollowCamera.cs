@@ -4,6 +4,7 @@ using System;
 
 public class FollowCamera : MonoBehaviour
 {
+    public Transform ObjectToFollow;
     public Transform CameraObject;
     public Transform Position1Reference;
     public Transform Position2Reference;
@@ -23,6 +24,9 @@ public class FollowCamera : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        transform.position = ObjectToFollow.position;
+        transform.parent = ObjectToFollow;
+
         MapPositionReference();
     }
 

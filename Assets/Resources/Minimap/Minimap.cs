@@ -35,11 +35,7 @@ public class Minimap : MonoBehaviour
 
         _minimapCamera.rect = new Rect(0.5f, -0.6f, 1f, 1f); // View port.
         _minimapCamera.fieldOfView = 40f;
-        _minimapCamera.clearFlags = CameraClearFlags.Depth;
+        _minimapCamera.clearFlags = CameraClearFlags.Color;
         _minimapCamera.transform.rotation = Quaternion.Euler(90, -90, 0);
-    }
-
-    void Update()
-    {
     }
 }
