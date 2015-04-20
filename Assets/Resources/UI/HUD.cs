@@ -2,8 +2,6 @@
 using UnityEngine.UI;
 using System.Collections;
 
-using UnityStandardAssets.Vehicles.Car;
-
 public static class RectTransformExtensions
 {
     public static void SetDefaultScale(this RectTransform trans)
@@ -72,23 +70,23 @@ public static class RectTransformExtensions
 public class HUD : MonoBehaviour
 {
     public Transform HudPreFab;
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
-        CarUserControl[] carControllers = FindObjectsOfType<CarUserControl>();
+        PlayerType[] carControllers = FindObjectsOfType<PlayerType>();
 
-        foreach(CarUserControl car in carControllers)
+        foreach (PlayerType car in carControllers)
         {
-            if(car.m_playerType == PlayerType.Drone)
+            if (car.Player == PlayerType.Types.Drone)
             {
                 continue;
             }
 
-            CreateHud(car.m_playerType == PlayerType.Player1, car);
+            CreateHud(car.Player == PlayerType.Types.Player1, car);
         }
-	}
+    }
 
-    void CreateHud(bool Player1, CarUserControl car)
+    void CreateHud(bool Player1, PlayerType car)
     {
         Transform Hud = (Transform)Instantiate(HudPreFab);
         Hud.SetParent(this.gameObject.transform, false);
