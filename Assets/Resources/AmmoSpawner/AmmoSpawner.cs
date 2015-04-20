@@ -4,7 +4,8 @@ using System.Collections;
 public class AmmoSpawner : MonoBehaviour
 {
     public Transform InctiveAmmoPrefab;
-    private Transform Ammo;
+    public float SpawnRate = 5;
+
     private bool spawning = false;
 
     void Start()
@@ -14,8 +15,7 @@ public class AmmoSpawner : MonoBehaviour
 
     void Update()
     {
-        if(!spawning
-            && Ammo == null)
+        if(!spawning)
         {
             StartCoroutine(CoSpawn());
         }
@@ -25,7 +25,7 @@ public class AmmoSpawner : MonoBehaviour
     {
         spawning = true;
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(SpawnRate);
 
         Spawn();
         spawning = false;
@@ -33,6 +33,6 @@ public class AmmoSpawner : MonoBehaviour
 
     void Spawn()
     {
-        Ammo = (Transform)Instantiate(InctiveAmmoPrefab, transform.localPosition, transform.localRotation);
+        Instantiate(InctiveAmmoPrefab, transform.localPosition, transform.localRotation);
     }
 }

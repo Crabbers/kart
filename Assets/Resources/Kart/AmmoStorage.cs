@@ -3,9 +3,11 @@ using System.Collections;
 
 public class AmmoStorage : MonoBehaviour
 {
-    bool firing = false;
     public int AmmoCount = 0;
     public Transform ActiveAmmoPrefab;
+    public float FireRate = 1;
+
+    private bool firing = false;
 
     void FixedUpdate()
     {
@@ -28,7 +30,7 @@ public class AmmoStorage : MonoBehaviour
 
         Transform p = (Transform)Instantiate(ActiveAmmoPrefab, transform.position + offset, transform.rotation);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(FireRate);
         firing = false;
     }
 
