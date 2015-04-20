@@ -4,28 +4,30 @@ using System.Collections;
 public class ZombieSpawner : MonoBehaviour
 {
     public Transform WanderingZombiePrefab;
-    public float SpawnRate = 5;
+    public float SpawnRate = 20;
 
     private bool spawning = false;
 
     void Start()
     {
-        Spawn();
+        float initialDelay = Random.Range(0f, SpawnRate);
+
+        StartCoroutine(CoSpawn(initialDelay));
     }
 
     void Update()
     {
         if(!spawning)
         {
-            StartCoroutine(CoSpawn());
+            StartCoroutine(CoSpawn(SpawnRate));
         }
     }
 
-    IEnumerator CoSpawn()
+    IEnumerator CoSpawn(float delay)
     {
         spawning = true;
 
-        yield return new WaitForSeconds(SpawnRate);
+        yield return new WaitForSeconds(delay);
 
         Spawn();
         spawning = false;
