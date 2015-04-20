@@ -27,7 +27,7 @@ namespace UnityStandardAssets.Vehicles.Car
         {
            if(m_isDrone)
            {
-               DroneControl();
+
            }
            else
            {
@@ -42,15 +42,16 @@ namespace UnityStandardAssets.Vehicles.Car
             float v = CrossPlatformInputManager.GetAxis("Vertical");
 #if !MOBILE_INPUT
             float handbrake = CrossPlatformInputManager.GetAxis("Jump");
+            handbrake = 0f;
             m_Car.Move(h, v, v, handbrake);
 #else
             m_Car.Move(h, v, v, 0f);
 #endif
         }
 
-        private void DroneControl()
+        public void DroneControl(float steering, float accel, float footbrake, float handbrake)
         {
-
+            m_Car.Move(steering, accel, footbrake, handbrake);
         }
 
         private GameObject FindClosestEnemy()
