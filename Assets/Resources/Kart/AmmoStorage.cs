@@ -4,8 +4,11 @@ using System.Collections;
 public class AmmoStorage : MonoBehaviour
 {
     public int AmmoCount = 0;
-    public Transform ActiveAmmoPrefab;
+    public GameObject BananaPeelZombiePrefab;
+    public GameObject GreenShellZombiePrefab;
     public float FireRate = 1;
+    public Transform BananaPeelSpawnPoint;
+    public Transform GreenShellSpawnPoint;
 
     private bool firing = false;
 
@@ -16,19 +19,45 @@ public class AmmoStorage : MonoBehaviour
             && Input.GetButtonDown("Fire1")
             )
         {
-            StartCoroutine(Fire());
+            StartCoroutine(FireGreenShellZombie());
+        }
+
+        if (!firing
+            && AmmoCount > 0
+            && Input.GetButtonDown("Fire2")
+            )
+        {
+            StartCoroutine(FireBananaPeelZombie());
         }
     }
 
-    IEnumerator Fire()
+    IEnumerator FireBananaPeelZombie()
     {
         firing = true;
         AmmoCount--;
 
-        Vector3 offset = new Vector3(0, 0, -3);
-        offset = transform.rotation * offset;
+        Vector3 backward = Vector3.Normalize(new Vector3(transform.forward.x, 0f, transform.forward.z)) * -1;
 
-        Transform p = (Transform)Instantiate(ActiveAmmoPrefab, transform.position + offset, transform.rotation);
+        Instantiate(
+            BananaPeelZombiePrefab,
+            new Vector3(BananaPeelSpawnPoint.position.x, 0f, BananaPeelSpawnPoint.position.z),
+            Quaternion.LookRotation(backward, Vector3.up));
+
+        yield return new WaitForSeconds(FireRate);
+        firing = false;
+    }
+
+    IEnumerator FireGreenShellZombie()
+    {
+        firing = true;
+        AmmoCount--;
+
+        Vector3 forward = Vector3.Normalize(new Vector3(transform.forward.x, 0f, transform.forward.z));
+
+        Instantiate(
+            GreenShellZombiePrefab,
+            new Vector3(GreenShellSpawnPoint.position.x, 0f, GreenShellSpawnPoint.position.z),
+            Quaternion.LookRotation(forward, Vector3.up));
 
         yield return new WaitForSeconds(FireRate);
         firing = false;

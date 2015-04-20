@@ -104,7 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WanderingZombiePrefab: {fileID: 459120, guid: 04a86d800eb11b649af6a7c4cfdaae82,
     type: 2}
-  SpawnRate: 5
+  SpawnRate: 20
 --- !u!114 &11476770
 MonoBehaviour:
   m_ObjectHideFlags: 1
