@@ -3,8 +3,6 @@ using System.Collections;
 
 public class ZombieKart : MonoBehaviour
 {
-    public bool Bot = false;
-
     public Transform FrontRightWheel;
     public Transform FrontLeftWheel;
     public Transform RearRightWheel;
@@ -34,7 +32,7 @@ public class ZombieKart : MonoBehaviour
 
         transform.position = transform.position + transform.forward * _velocity;
 
-        int turningMultiplier = GetTurningMultiplier();
+        float turningMultiplier = GetTurningMultiplier();
 
         _turnAngle += WheelTurnRate * turningMultiplier;
 
@@ -76,15 +74,13 @@ public class ZombieKart : MonoBehaviour
 
             velocityModifier *= forwardOrReverse;
 
-            Debug.Log("Modifier: " + velocityModifier);
-
-            transform.Rotate(Vector3.down, _turnAngle * velocityModifier);
+            transform.Rotate(Vector3.up, _turnAngle * velocityModifier);
         }
     }
 
     private void TurnWheel(Transform wheel)
     {
-        wheel.rotation = Quaternion.AngleAxis(_turnAngle * -1, wheel.up) * transform.rotation;
+        wheel.rotation = Quaternion.AngleAxis(_turnAngle * 1, wheel.up) * transform.rotation;
     }
 
     private void RotateWheels()
@@ -95,53 +91,33 @@ public class ZombieKart : MonoBehaviour
         }
     }
 
-    private int GetTurningMultiplier()
+    private float GetTurningMultiplier()
     {
-        if (Bot)
+        PlayerType type = GetComponent<PlayerType>();
+
+        if (type.Player == PlayerType.Types.Drone)
         {
-            //Bots always turn to the left
-            return 1;
+            //Bots always turn to the right
+            return 1f;
         }
         else
         {
-            int turnDirection = 0;
-
-            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-            {
-                ++turnDirection;
-            }
-
-            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-            {
-                --turnDirection;
-            }
-
-            return turnDirection;
+            return Input.GetAxis(type.Player == PlayerType.Types.Player1 ? "P1 Steer" : "P2 Steer");
         }
     }
 
-    private int GetMovementMultiplier()
+    private float GetMovementMultiplier()
     {
-        if (Bot)
+        PlayerType type = GetComponent<PlayerType>();
+
+        if (type.Player == PlayerType.Types.Drone)
         {
             //Bots always drive forward as there is no AI yet
-            return 1;
+            return 1f;
         }
         else
         {
-            int movement = 0;
-
-            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-            {
-                ++movement;
-            }
-
-            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-            {
-                --movement;
-            }
-
-            return movement;
+            return Input.GetAxis(type.Player == PlayerType.Types.Player1 ? "P1 Accelerate" : "P2 Accelerate");
         }
     }
 
