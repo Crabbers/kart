@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AmmoSpawner : MonoBehaviour
+public class ZombieSpawner : MonoBehaviour
 {
-    public Transform InctiveAmmoPrefab;
+    public Transform WanderingZombiePrefab;
     public float SpawnRate = 5;
 
     private bool spawning = false;
@@ -33,6 +33,6 @@ public class AmmoSpawner : MonoBehaviour
 
     void Spawn()
     {
-        Instantiate(InctiveAmmoPrefab, transform.localPosition, transform.localRotation);
+        Instantiate(WanderingZombiePrefab, transform.localPosition, transform.localRotation);
     }
 }
