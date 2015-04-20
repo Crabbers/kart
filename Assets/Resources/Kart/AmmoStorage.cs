@@ -39,7 +39,10 @@ public class AmmoStorage : MonoBehaviour
 
         if (!firing
             && AmmoCount > 0
-            && Input.GetButtonDown("Fire2")
+            && (
+                    (type == PlayerType.Player1 && Input.GetButton("P1 Fire2"))
+                || (type == PlayerType.Player2 && Input.GetButton("P2 Fire2"))
+                )
             )
         {
             StartCoroutine(FireBananaPeelZombie());
