@@ -3873,7 +3873,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 417630, guid: 1c0249afcc6e8b94698573be85234bb5, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11428432, guid: 1c0249afcc6e8b94698573be85234bb5, type: 2}
       propertyPath: ObjectToFollow
